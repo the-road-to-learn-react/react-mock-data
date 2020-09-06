@@ -80,17 +80,14 @@ export const createUser = (data) =>
 
 export const updateUser = (id, data) =>
   new Promise((resolve, reject) => {
-    const { [id]: user, ...rest } = users;
-
-    if (!user) {
+    if (!users[id]) {
       return setTimeout(
         () => reject(new Error('User not found')),
         250
       );
     }
 
-    const modifiedUser = { ...user, ...data };
-    users = { ...rest, [id]: modifiedUser };
+    users[id] = { ...users[id], ...data };
 
     return setTimeout(() => resolve(true), 250);
   });
